@@ -1,6 +1,6 @@
 # 🔐 Social Login Test App
 
-A simple Node.js/Express application for testing Google OAuth login integration.
+A simple Node.js/Express application for testing Google and Facebook OAuth login integration.
 
 ## 🚀 Quick Setup
 
@@ -9,7 +9,9 @@ A simple Node.js/Express application for testing Google OAuth login integration.
    npm install
    ```
 
-2. **Set up Google OAuth:**
+2. **Set up OAuth providers:**
+
+   ### Google OAuth Setup:
    - Go to [Google Developers Console](https://console.developers.google.com/)
    - Create a new project or select an existing one
    - Enable the Google+ API (or Google Identity API)
@@ -18,14 +20,23 @@ A simple Node.js/Express application for testing Google OAuth login integration.
    - Add authorized redirect URI: `http://localhost:3000/auth/google/callback`
    - Copy your Client ID and Client Secret
 
+   ### Facebook OAuth Setup:
+   - Go to [Facebook Developers](https://developers.facebook.com/)
+   - Create a new app or select an existing one
+   - Add **"Facebook Login"** product to your app
+   - In Facebook Login settings → **Valid OAuth Redirect URIs**, add: `http://localhost:3000/auth/facebook/callback`
+   - Go to **Settings** → **Basic** to get your App ID and App Secret
+
 3. **Configure environment variables:**
    ```bash
    copy .env.example .env
    ```
-   Edit `.env` and add your Google OAuth credentials:
+   Edit `.env` and add your OAuth credentials:
    ```
-   GOOGLE_CLIENT_ID=your_actual_client_id
-   GOOGLE_CLIENT_SECRET=your_actual_client_secret
+   GOOGLE_CLIENT_ID=your_actual_google_client_id
+   GOOGLE_CLIENT_SECRET=your_actual_google_client_secret
+   FACEBOOK_APP_ID=your_actual_facebook_app_id
+   FACEBOOK_APP_SECRET=your_actual_facebook_app_secret
    SESSION_SECRET=any_random_string_here
    ```
 
@@ -40,7 +51,7 @@ A simple Node.js/Express application for testing Google OAuth login integration.
 
 5. **Test the login:**
    - Open http://localhost:3000
-   - Click "Login with Google"
+   - Click "Login with Google" or "Login with Facebook"
    - Complete the OAuth flow
    - You'll be redirected to a dashboard showing your profile info
 
@@ -59,9 +70,10 @@ social-login-test/
 ## 🔧 Features
 
 - ✅ Google OAuth 2.0 integration
+- ✅ Facebook OAuth 2.0 integration
 - ✅ Session management
 - ✅ Protected routes
-- ✅ User profile display
+- ✅ User profile display (shows which provider was used)
 - ✅ Logout functionality
 - ✅ Simple HTML interface
 - ✅ Error handling
@@ -69,7 +81,7 @@ social-login-test/
 ## 🛠️ Technology Stack
 
 - **Backend:** Node.js + Express
-- **Authentication:** Passport.js with Google OAuth 2.0
+- **Authentication:** Passport.js with Google & Facebook OAuth 2.0
 - **Sessions:** express-session
 - **Environment:** dotenv
 
@@ -82,7 +94,11 @@ social-login-test/
 
 ## 🔍 Troubleshooting
 
-- Make sure your Google OAuth redirect URI exactly matches: `http://localhost:3000/auth/google/callback`
-- Ensure your `.env` file has the correct credentials
+- Make sure your OAuth redirect URIs exactly match:
+  - Google: `http://localhost:3000/auth/google/callback`
+  - Facebook: `http://localhost:3000/auth/facebook/callback`
+- Ensure your `.env` file has the correct credentials for both providers
 - Check the console for any error messages
-- Verify that your Google project has the necessary APIs enabled
+- Verify that your projects have the necessary APIs/products enabled:
+  - Google: Google+ API or Google Identity API
+  - Facebook: Facebook Login product
